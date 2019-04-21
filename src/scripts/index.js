@@ -258,6 +258,7 @@ const showCurrentInput = number => {
     } else {
       item.style.display = 'block';
       const { id, btn } = steps.find(item => item.id === number);
+
       const $button = document.createElement('button');
       $button.setAttribute('id', btn);
       $button.setAttribute('data-id', id);
@@ -270,8 +271,22 @@ const showCurrentInput = number => {
 
   const $buttons = document.querySelectorAll('.button-form');
 
+
+  document.querySelectorAll("custominput input, custominput select").forEach(item => {
+    item.addEventListener('blur', e => {
+      const { parentElement } = e.target;
+      const elem = {
+        name: parentElement.getAttribute('name'),
+        type: parentElement.getAttribute('type'),
+        required: parentElement.getAttribute('required'),
+        value: item.value
+      };
+
+      console.log(validateField(elem));
+    })
+  });
+
   $buttons.forEach(button => button.addEventListener('click', e => {
-    console.log(steps.length);
     if (parseInt(e.target.dataset.id) === steps.length) {
       console.log('a');
       let newSchema = [];
@@ -287,9 +302,6 @@ const showCurrentInput = number => {
             value: item.value
           }
         ];
-
-        validateFields(newSchema);
-
         console.log(item.parentElement.getAttribute('type'));
         console.log(item.name + " - " + item.value);
       });
@@ -302,11 +314,34 @@ const showCurrentInput = number => {
 };
 
 
-const validateFields = (schema) => {
+const validateField = ({ type, value, required, name }) => {
+  console.log(value);
+  console.log(type);
+  let errors = [];
 
-}
+  if (required && !value) {
+    errors = [...errors, "This field is required."];
+  }
 
+  switch(type) {
+    case "string":
+      break;
+    case "number":
+      const isNumber = /^\d+$/.test(value);
 
-// showCurrentInput(1);
+      errors = !isNumber ? [...errors, "This input can contain only numbers"] : errors;
+  }
+
+  const $errorField = document.querySelector(`errorfield[for="${name}"]`)
+
+  errors.forEach(item => {
+    const $error = document.createElement('p');
+    $error.innerHTML = item;
+    console.log($error)
+    $errorField.appendChild($error);
+  });
+
+  return errors;
+};
+
 nextButton(0);
-
