@@ -63,6 +63,7 @@ export const firstSchema = {
 ```
 
 ##Schema docs
+.
 
 ##### type:
 1. string - a basic input type text
@@ -112,6 +113,8 @@ This property is present only on ``type`` ``bool`` and it represents the inputs 
 
 
 ##Other Stuff
+
+.
 ``CustomInput`` it's an hoc so I can get easier some info about the input
 
 ``ErrorField`` hoc over errors
