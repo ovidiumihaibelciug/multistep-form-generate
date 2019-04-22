@@ -94,7 +94,24 @@ export const validateFields = () => {
       const errorsNumber = fieldsErrors ? fieldsErrors.reduce((acc, curr) => acc + curr.length, 0) : 0;
       console.log('a', errorsNumber);
       if (!errorsNumber)  {
-        validateFields();
+        prevButton(e.target.dataset.id);
+        const modal = document.querySelector('.modal');
+        modal.classList.remove('modal--active');
+
+        const body = document.querySelector('body');
+
+        const toast = document.createElement('div');
+        const p = document.createElement('p');
+        p.innerHTML = "Succes";
+
+        body.appendChild(toast);
+        toast.classList.add('toast');
+        toast.appendChild(p);
+        prevButton()
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 2000);
+
         console.log('RESULT', newSchema);
       }
     } else {

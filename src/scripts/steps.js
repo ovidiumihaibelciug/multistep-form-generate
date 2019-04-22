@@ -15,7 +15,6 @@ export const showCurrentInput = number => {
       const $button = document.createElement('button');
       const $buttonBack = document.createElement('button');
 
-
       $buttonBack.setAttribute('id', btn);
       $buttonBack.setAttribute('data-id', id);
       $buttonBack.innerHTML = "Back";

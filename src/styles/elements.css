@@ -33,10 +33,6 @@
 }
 
 
-
-
-
-
 .final__toggle-1 {
     font-family: Helvetica, Arial, sans-serif;
     display: inline-block;
@@ -91,6 +87,7 @@
 .input__main {
     display: block;
 }
+
 input[type="text"] {
     font-size: 18px;
     padding: 10px 10px 10px 5px;
@@ -284,4 +281,36 @@ input[type="radio"]:active + .design::after {
 
 .input--secondary {
     display: none;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 250px;
+    border-radius: 4px;
+    background-color: var(--succes-color);
+    padding: 10px;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    opacity: 1;
+    animation: toast 500ms cubic-bezier(.23, .82, .16, 1.46);
+    animation-iteration-count: 1;
+}
+
+
+@keyframes toast {
+    0% {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 50%);
+    }
 }
