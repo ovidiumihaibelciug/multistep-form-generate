@@ -1,6 +1,6 @@
-## Job Test
+# Job Test
 
-I took this challenge a step further so, I made
+I took this challenge a step further so I made
 a multi-step form generated based on a given schema.
 
 Firstly it takes a steps array which contains the schema
@@ -62,7 +62,7 @@ export const firstSchema = {
  }
 ```
 
-###Schema docs
+##Schema docs
 
 ##### type:
 1. string - a basic input type text
@@ -111,7 +111,7 @@ This property can appear only on ``type`` ``select`` or ``radio``, and it repres
 This property is present only on ``type`` ``bool`` and it represents the inputs that will appear if the checkbox is true
 
 
-###Other Stuff
+##Other Stuff
 ``CustomInput`` it's an hoc so I can get easier some info about the input
 
 ``ErrorField`` hoc over errors
