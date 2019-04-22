@@ -1,4 +1,4 @@
-import {steps} from "./data";
+import {firstSchema, secondSchema, steps} from "./data";
 import {validateField} from "./validation";
 import {$container} from "./elements";
 import {generateInput} from "./inputs";
@@ -11,7 +11,17 @@ export const showCurrentInput = number => {
     } else {
       item.style.display = 'block';
       const {id, btn} = steps.find(item => item.id === number);
+
       const $button = document.createElement('button');
+      const $buttonBack = document.createElement('button');
+
+
+      $buttonBack.setAttribute('id', btn);
+      $buttonBack.setAttribute('data-id', id);
+      $buttonBack.innerHTML = "Back";
+      $buttonBack.classList.add('button');
+      $buttonBack.classList.add('button--back');
+
       $button.setAttribute('id', btn);
       $button.setAttribute('data-id', id);
       $button.innerHTML = id === steps.length - 1 ? 'Next' : 'Submit';
@@ -20,7 +30,11 @@ export const showCurrentInput = number => {
 
       const buttonDiv = document.createElement('div');
       buttonDiv.classList.add('modal__footer');
+
       item.appendChild(buttonDiv);
+      if (id !== 1) {
+        buttonDiv.appendChild($buttonBack);
+      }
       buttonDiv.appendChild($button);
     }
   });
@@ -29,15 +43,15 @@ export const showCurrentInput = number => {
     item.addEventListener('blur', e => {
       const {parentElement} = e.target;
       item.classList.add('input--active');
-      console.log('asd', e.target.type);
       const elem = {
         name: parentElement.getAttribute('name'),
         type: parentElement.getAttribute('type'),
         required: parentElement.getAttribute('required'),
-        value: item.value
+        maxSize: parentElement.getAttribute('maxsize'),
+        value: item.value,
       };
 
-      console.log(validateField(elem));
+      validateField(elem);
     })
   });
 
@@ -49,12 +63,39 @@ export const showCurrentInput = number => {
         name: parentElement.getAttribute('name'),
         type: parentElement.getAttribute('type'),
         required: parentElement.getAttribute('required'),
-        value: item.clicked && item.value
+        value: item.checked && item.value
       };
 
-      console.log(elem, item.value);
+      validateField(elem);
+    })
+  });
+  document.querySelectorAll('custominput input[type="checkbox"]').forEach(item => {
+    item.addEventListener('change', e => {
+      const {parentElement: {parentElement}} = e.target;
 
-      console.log(validateField(elem));
+      const elem = {
+        name: parentElement.getAttribute('name'),
+        type: parentElement.getAttribute('type'),
+        required: parentElement.getAttribute('required'),
+        value: item.checked && item.value
+      };
+
+      Object.keys(secondSchema[elem.name].secondary).map(key => {
+        const fieldObj = {
+          name: key,
+          ...secondSchema[elem.name].secondary[key],
+          required: false,
+        };
+
+        const field = document.querySelector(`custominput[name="${fieldObj.name}"]`);
+        if (e.target.checked) {
+          field.classList.remove('input--secondary');
+        } else {
+          field.classList.add('input--secondary');
+        }
+      });
+
+      validateField(elem)
     })
   });
 };
@@ -84,15 +125,16 @@ export const generateFields = () => {
 
 export const nextButton = currentNumber => {
   showCurrentInput(currentNumber + 1);
+  const progress = document.querySelector('.progress');
+  const initialWidth = (100 * (currentNumber + 1)) / steps.length + 1;
+
+  progress.style.width = (initialWidth <= 100 ? initialWidth : 100) + '%';
 };
 
 export const prevButton = currentNumber => {
   showCurrentInput(currentNumber - 1);
+  const progress = document.querySelector('.progress');
+  const initialWidth = (100 * (currentNumber)) / steps.length + 1;
+
+  progress.style.width = (initialWidth <= 100 ? initialWidth : 100) + '%';
 };
-
-export default {
-  nextButton,
-  prevButton,
-  showCurrentInput
-}
-

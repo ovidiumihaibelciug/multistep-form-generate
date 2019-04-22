@@ -1,17 +1,20 @@
-import '../styles.css';
+import '../styles/styles.css';
 
 import {steps} from "./data";
-import {validateFields} from "./validation";
+import {validateFields,} from "./validation";
 import {nextButton, generateFields, createFormSteps} from "./steps";
 import modalStuff from './modal';
 
+(() => {
+  createFormSteps(steps);
 
-createFormSteps(steps);
+  generateFields();
 
-generateFields();
+  nextButton(0); // show first step
 
-validateFields();
+  validateFields();
 
-nextButton(0); // show first step
+  modalStuff();
 
-modalStuff();
+})(document);
+

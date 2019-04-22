@@ -2,48 +2,52 @@ export const firstSchema = {
   title: {
     type: "string",
     required: true,
-    label: "Lorem ipsum"
+    label: "Title of announcement",
+    maxSize: 20,
   },
-  amount: {
+  brand: {
+    type: "select",
+    required: true,
+    label: "Make/Brand",
+    options: [
+      {
+        title: 'Type 1'
+      },
+      {
+        title: 'Type 2',
+      },
+      {
+        title: 'Type 3',
+      }
+    ]
+  },
+  year: {
     type: "number",
     required: true,
-    label: "Lorem ipsum dolor situm"
+    label: "Manufracting Year",
+    maxSize: 4,
   },
-  asd: {
-    type: "string",
+  mileage: {
+    type: "number",
     required: true,
-    label: "String"
+    label: "Mileage",
   },
-  asd2: {
-    type: "select",
-    options: [
-      {
-        title: 'Choose'
-      },
-      {
-        title: 'Asd',
-      },
-      {
-        title: '123',
-      }
-    ]
-  },
-  asd3: {
+  fuel: {
     type: "radio",
-    label: "Choose something",
+    label: "Fuel Type",
     options: [
       {
-        title: 'Choose',
+        title: 'Type 1'
       },
       {
-        title: 'Asd',
+        title: 'Type 2',
       },
       {
-        title: '123',
+        title: 'Type 3',
       }
     ]
   },
-  asd4: {
+  color: {
     type: 'color',
     label: 'Choose a color',
     options: [
@@ -55,25 +59,45 @@ export const firstSchema = {
       }
     ]
   },
-  bool: {
-    type: 'bool',
-    label: 'Bool FIeld',
-    secondary: {
-      title123: {
-        type: "string",
-        required: true,
-        label: "Lorem ipsum"
-      }
-    }
-  }
 };
 
 export const secondSchema = {
-  title2: {
+  damaged: {
+    type: 'bool',
+    label: 'Vehicle Damaged',
+    secondary: {
+      details: {
+        type: "string",
+        label: "Details"
+      }
+    }
+  },
+  price: {
     type: "string",
     required: true,
-    label: "Title2"
+    label: "Price"
   },
+  currency: {
+    type: "select",
+    required: true,
+    label: "Price",
+    options: [
+      {
+        title: 'Type 1'
+      },
+      {
+        title: 'Type 2',
+      },
+      {
+        title: 'Type 3',
+      }
+    ]
+  },
+  description: {
+    type: "string",
+    required: true,
+    label: 'Description'
+  }
 };
 
 export const steps = [

@@ -1,5 +1,5 @@
-export const generateInput = (block, container) => {
-  const {type, required = false, name} = block;
+export const generateInput = (block, container, isSecondary = false) => {
+  const {type, required = false, name, ...rest} = block;
 
   const inputAttributes = [
     {
@@ -17,7 +17,7 @@ export const generateInput = (block, container) => {
     {
       name: 'id',
       value: name,
-    }
+    },
   ];
 
   const errorAttributes = [
@@ -30,6 +30,13 @@ export const generateInput = (block, container) => {
   const CustomInput = document.createElement('CustomInput');
   const ErrorField = document.createElement('ErrorField');
 
+  if (isSecondary) {
+    CustomInput.setAttribute('secondary', 'true');
+  }
+
+  if (rest.maxSize) {
+    CustomInput.setAttribute('maxSize', rest.maxSize);
+  }
 
   inputAttributes.forEach(({name, value}) => {
     CustomInput.setAttribute(name, value);
@@ -43,6 +50,9 @@ export const generateInput = (block, container) => {
 
   CustomInput.setAttribute('class', 'input__main');
   CustomInput.classList.add('group');
+  if (isSecondary) {
+    CustomInput.classList.add('input--secondary');
+  }
 
   chooseInputType(block, container);
   CustomInput.appendChild(ErrorField);
@@ -162,9 +172,10 @@ const chooseInputType = ({type, ...rest}, container) => {
       Object.keys(rest.secondary).map(key => {
         const newObj = {
           name: key,
-          ...rest.secondary[key]
+          ...rest.secondary[key],
+          required: false,
         };
-        generateInput(newObj, container);
+        generateInput(newObj, container, true);
       });
       break;
     default:
