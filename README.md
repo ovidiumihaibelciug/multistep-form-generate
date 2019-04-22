@@ -118,9 +118,9 @@ This property is present only on ``type`` ``bool`` and it represents the inputs 
 
 ``ErrorField`` hoc over errors
 
-##Schema example
+## Schema example
 
-```ecmascript 6
+```javascript
 export const firstSchema = {
   title: {
     type: "string",
